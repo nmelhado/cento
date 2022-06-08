@@ -22,5 +22,8 @@
 		"prettier-plugin-svelte": "^2.5.0",
 		"svelte": "^3.44.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"just-throttle": "^4.0.1"
+	}
 }

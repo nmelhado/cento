@@ -2,11 +2,33 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+      <meta http-equiv="Content-Language" content="en">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicons/favicon-16x16.png">
+    <link rel="manifest" href="%sveltekit.assets%/favicons/site.webmanifest">
+    <link rel="mask-icon" href="%sveltekit.assets%/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="%sveltekit.assets%/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-config" content="%sveltekit.assets%/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="apple-mobile-web-app-title" content="Cento Percento">
+		<meta name="application-name" content="Cento Percento">
+
+		<!-- Fonts and CSS -->
+		<link  rel="stylesheet" rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" />
+		<link  rel="stylesheet" rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700&display=swap" />
+		<link  rel="stylesheet" rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" />
+		<script defer src="https://kit.fontawesome.com/a954595dae.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="%sveltekit.assets%/main.css" />
+
 		%sveltekit.head%
 	</head>
 	<body>
-		<div>%sveltekit.body%</div>
+		<div id="svelte">%sveltekit.body%</div>
 	</body>
 </html>
