@@ -1,6 +1,5 @@
 <script>
 	import throttle from 'just-throttle';
-	import { base } from '$app/paths'
 	const year = new Date().getFullYear();
 
 	export let footerHeight;
@@ -66,11 +65,11 @@
 
 <footer bind:this={el}>
     <div id="footerText">
-        <a href="<?php echo $starter;?>index.php" class="footerLinks" id="homeFooter">HOME</a>
-        <a href="<?php echo $starter;?>about" class="footerLinks">ABOUT</a>
-        <a href="<?php echo $starter;?>contact" class="footerLinks">CONTACT US</a>
-        <a href="<?php echo $starter;?>supper-club" class="footerLinks">SUPPER CLUB</a>
-        <a href="<?php echo $starter;?>terms" class="footerLinks">TERMS OF USE</a>
+        <a href="/" class="footerLinks" id="homeFooter">HOME</a>
+        <a href="/about" class="footerLinks">ABOUT</a>
+        <a href="/contact" class="footerLinks">CONTACT US</a>
+        <a href="/supper-club" class="footerLinks">SUPPER CLUB</a>
+        <a href="/terms" class="footerLinks">TERMS OF USE</a>
     </div>
     <p id="copyright">&copy; 2017-{year} Cento Percento LLC. All Rights Reserved.</p>
     <p id="nContactP"><i>Website by <a href="https://www.nmelhado.com" target="_blank" id="nContact">Nicholas Melhado</a></i></p>
