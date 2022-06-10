@@ -62,9 +62,9 @@
 
     #logo {
         display: block;
-        height: 80%;
+        width: 80%;
         max-width: 600px;
-        padding: 40px;
+        padding: 60px 20px;
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -75,8 +75,8 @@
         height: 40px;
         max-width: 1000px;
         padding: 0;
-        border-top: 1px solid #0dafe3;
-        border-bottom: 1px solid #0dafe3;
+        border-top: 1px solid var(--centoPrimary);
+        border-bottom: 1px solid var(--centoPrimary);
         background-color: #fff;
         margin: 12px auto 0 auto;
         text-align: center;
@@ -126,8 +126,8 @@
         left: -3px;
         right: -3px;
         bottom: 2px;
-        border-top: 2px solid #0193bd;
-        border-bottom: 2px solid #0193bd;
+        border-top: 2px solid var(--centoSecondary);
+        border-bottom: 2px solid var(--centoSecondary);
         z-index: 19;
     }
 
@@ -151,16 +151,6 @@
         font-size: 16px;
         font-weight: 500;
     }
-
-    .navClose {
-        z-index: 98;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
     /* Search */
 
     .navSearch {
@@ -182,7 +172,7 @@
         display: inline-block;
         height: 18px;
         padding: 3px 30px;
-        background-color: #0dafe3;
+        background-color: var(--centoPrimary);
         border-radius: 4px;
         margin: 0;
         vertical-align: middle;

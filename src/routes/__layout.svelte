@@ -24,12 +24,24 @@
     main {
         overflow-y: auto;
     }
+
+    #mainBlock {
+    width: 95%;
+    max-width: 1000px;
+    padding: 0;
+    margin: 150px auto 130px auto;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: justify;
+}
 </style>
 
 <Nav {activeTab} bind:navHeight={navHeight} />
 
-<main style="{activeTab == "/" ? "height" : "min-height"}: {innerHeight - navHeight - footerHeight}px;">
-	<slot />
+<main style="min-height: {innerHeight - navHeight - footerHeight}px;">
+    <div id="mainBlock">
+        <slot />
+    </div>
 </main>
 
 <Footer bind:footerHeight={footerHeight} />
