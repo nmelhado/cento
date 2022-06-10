@@ -1,5 +1,4 @@
 export const simplifyRecipe = (data) => {
-    data.previewImage = getImg(data.previewImage);
     data.mainImage = getImg(data.mainImage);
 
     data.recipe = generateParagraph(data.recipe);
@@ -22,7 +21,7 @@ export const simplifyRecipePreview = (data) => {
 }
 
 const getImg = (img) => {
-    return `https://${img.fields.file.url.split('//')[1]}`;
+    return `https://${img.fields.file.url.split('//')[1]}?fm=jpg&fl=progressive`;
 }
 
 const generateParagraph = (paragraph, indent = true) => {
@@ -47,7 +46,7 @@ const generateParagraph = (paragraph, indent = true) => {
             paragraphText += '<hr />'
             break;
         case 'embedded-asset-block':
-            paragraphText += `<img class="recipeImg" src="${getImg(paragraph.data.target)}" alt="${paragraph.data.target.fields.title}" />`
+            paragraphText += `<br /><img class="recipeImg" src="${getImg(paragraph.data.target)}" alt="${paragraph.data.target.fields.title}" />`
             break;
     
         default:

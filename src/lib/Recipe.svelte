@@ -1,7 +1,9 @@
 <script>
+	import { prefetch } from '$app/navigation';
+
     export let recipe;
 
-    const {name, difficulty, cookTime, previewImage} = recipe;
+    const {name, difficulty, cookTime, previewImage, id} = recipe;
 
     let difficultyDisplay = "Easy";
     switch (difficulty) {
@@ -61,7 +63,14 @@
     }
 </style>
 
-<a href="recipe/{name}" class="recipe">
+<a
+    href="/recipe/{id}"
+    class="recipe"
+    
+    on:touchstart={() => prefetch(`/recipe/${id}`)}
+    on:focus={() => prefetch(`/recipe/${id}`)}
+    on:mouseover={() => prefetch(`/recipe/${id}`)}
+>
     <img class="prevImage" src="{previewImage}" alt="{name} preview" />
     <h6 class="resName">{name}</h6>
     <div class="info">

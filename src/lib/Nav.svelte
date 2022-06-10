@@ -231,7 +231,7 @@
 
                 <!-- Cento Logo -->
                 <div class="navButtons">
-                  <a href="/index.php"><img src="/imgs/navLogo.png" id="navLogo" alt="nav logo"></a>
+                  <a href="/"><img src="/imgs/navLogo.png" id="navLogo" alt="nav logo"></a>
                 </div>
 
                 <!-- Insta Link -->

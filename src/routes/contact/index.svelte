@@ -1,8 +1,18 @@
+<script context="module">
+    export const prerender = true;
+</script>
+
 <script>
     import Flourish from "$lib/Flourish.svelte";
 </script>
 
 <style>
+    .content {
+        width: 95%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
     .contactContainer {
         width: 100%;
         max-width: 600px;
@@ -41,51 +51,53 @@
     }
 </style>
 
-<div class="contactContainer">
-    <h1>Contact</h1>
-    
-    <p>For more information about our supper clubs, private events, lesons, or catering, please fill out the form below.  We look forward to hearing from you.</p>
-    
-    <Flourish text="Send us a message" />
-    
-    <div class="contactForm">
-        <fieldset>
-            <div class="form-group">
-                <label class="col-lg-12 control-label" for="uname">Name:<br>
-                    <input type="text" placeholder="Your Name" id="uname" class="form-control" name="theName" value="" required="">
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-12 control-label" for="uemail">Email:<br>
-                    <input type="text" placeholder="Your Email" id="uemail" class="form-control" name="email" value="" required="">
-                </label>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-12 control-label" for="umessage">Message:<br>
-                    <textarea id="umessage" name="message"></textarea>
-                </label>
-            </div>
-
-            <div style="height: 10px;clear: both"></div>
-
-            <div class="form-group">
-                <div class="col-lg-10">
-                <!-- TODO: submit email -->
-                <button class="btn btn-primary" type="submit" name="submit">Send Message</button> 
+<div class="content">
+    <div class="contactContainer">
+        <h1>Contact</h1>
+        
+        <p>For more information about our supper clubs, private events, lesons, or catering, please fill out the form below.  We look forward to hearing from you.</p>
+        
+        <Flourish text="Send us a message" />
+        
+        <div class="contactForm">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-lg-12 control-label" for="uname">Name:<br>
+                        <input type="text" placeholder="Your Name" id="uname" class="form-control" name="theName" value="" required="">
+                    </label>
                 </div>
-            </div>
-        </fieldset>
+                <div class="form-group">
+                    <label class="col-lg-12 control-label" for="uemail">Email:<br>
+                        <input type="text" placeholder="Your Email" id="uemail" class="form-control" name="email" value="" required="">
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-12 control-label" for="umessage">Message:<br>
+                        <textarea id="umessage" name="message"></textarea>
+                    </label>
+                </div>
+
+                <div style="height: 10px;clear: both"></div>
+
+                <div class="form-group">
+                    <div class="col-lg-10">
+                    <!-- TODO: submit email -->
+                    <button class="btn btn-primary" type="submit" name="submit">Send Message</button> 
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        
+        <p id="bottom">
+            <center>
+                Park Slope<br>
+                <a href="mailto:info@centopercentobk.com" class="bottomLink">
+                    info@centopercentobk.com
+                </a><br>
+                <a href="tel:+12672438760" class="bottomLink">
+                    (267)243-8760
+                </a>
+            </center>
+        </p>
     </div>
-    
-    <p id="bottom">
-        <center>
-            Park Slope<br>
-            <a href="mailto:info@centopercentobk.com" class="bottomLink">
-                info@centopercentobk.com
-            </a><br>
-            <a href="tel:+12672438760" class="bottomLink">
-                (267)243-8760
-            </a>
-        </center>
-    </p>
 </div>

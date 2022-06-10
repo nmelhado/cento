@@ -1,3 +1,7 @@
+<script context="module">
+    export const prerender = true;
+</script>
+
 <script>
     import Bio from "$lib/Bio.svelte";
     import Flourish from "$lib/Flourish.svelte";
@@ -18,12 +22,22 @@
     ]
 </script>
 
-<h1>About</h1>
+<style>
+    .content {
+        width: 95%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+</style>
 
-<p>Cento Percento is an Italian inspired food blog and also a seasonal supper club based out of Brooklyn, NY. We have an amazing team at Cento Percento, a group of three friends who all share the same love of food, cooking and of course, EATING. Together we do everything from the photography and food styling to creating new recipes and reinterpreting the classics. We created Cento Percento as a place for us to share our love of food, grow as chefs and have a platform to feed our friends and family. We hope you enjoy these recipes from our heart and come check us out at our next Supper Club. We can’t wait to feed you!</p>
+<div class="content">
+    <h1>About</h1>
 
-<Flourish text="Our Team" />
+    <p>Cento Percento is an Italian inspired food blog and also a seasonal supper club based out of Brooklyn, NY. We have an amazing team at Cento Percento, a group of three friends who all share the same love of food, cooking and of course, EATING. Together we do everything from the photography and food styling to creating new recipes and reinterpreting the classics. We created Cento Percento as a place for us to share our love of food, grow as chefs and have a platform to feed our friends and family. We hope you enjoy these recipes from our heart and come check us out at our next Supper Club. We can’t wait to feed you!</p>
 
-{#each team as {bio, img}}
-    <Bio {img} {bio} />
-{/each}
+    <Flourish text="Our Team" />
+
+    {#each team as {bio, img}}
+        <Bio {img} {bio} />
+    {/each}
+</div>

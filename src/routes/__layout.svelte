@@ -26,14 +26,12 @@
     }
 
     #mainBlock {
-    width: 95%;
-    max-width: 1000px;
-    padding: 0;
-    margin: 150px auto 130px auto;
-    background-color: #fff;
-    overflow: hidden;
-    text-align: justify;
-}
+        padding: 0;
+        margin: 100px auto 80px auto;
+        background-color: #fff;
+        overflow: hidden;
+        text-align: justify;
+    }
 </style>
 
 <Nav {activeTab} bind:navHeight={navHeight} />

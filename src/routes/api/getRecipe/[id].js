@@ -1,5 +1,5 @@
 import * as contentful from 'contentful';
-import { simplifyRecipePreview } from '$lib/helpers/contentfulHelpers';
+import { simplifyRecipe } from '$lib/helpers/contentfulHelpers';
 
 const client = contentful.createClient({
     // This is the space ID. A space is like a project folder in Contentful terms
@@ -8,19 +8,14 @@ const client = contentful.createClient({
     accessToken: import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN
 });
 
-export async function get() {
-	const data = await client.getEntries();
+export async function get({params}) {
+    const recipeID = params.id;
+	const data = await client.getEntry(recipeID);
 
-    const recipes = [];
-    
-    for(const recipe of data.items) {
-        const simplifiedRecipe = simplifyRecipePreview(recipe.fields);
-        simplifiedRecipe.id = recipe.sys.id;
-        recipes.push(simplifiedRecipe);
-    }
+    const recipe = simplifyRecipe(data.fields);
 
     return {
         status: 200,
-        body: JSON.stringify(recipes)
+        body: JSON.stringify(recipe)
     };
 }

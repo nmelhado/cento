@@ -1,8 +1,18 @@
+<script context="module">
+    export const prerender = true;
+</script>
+
 <script>
     import Flourish from "$lib/Flourish.svelte";
 </script>
 
 <style>
+    .content {
+        width: 95%;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
     #supBanner {
         width: 100%;
     }
@@ -17,28 +27,30 @@
     }
 </style>
 
-<h1>Services</h1>
+<div class="content">
+    <h1>Services</h1>
 
-<img src="/imgs/servicesBanner.jpg" id="supBanner" alt="cupcakes"/>
+    <img src="/imgs/servicesBanner.jpg" id="supBanner" alt="cupcakes"/>
 
-<Flourish text="Services" />
+    <Flourish text="Services" />
 
-<div class="container">
-    <div id="left">
-        <p>Cento is passionate about food, creating Italian inspired dishes with the best ingredients. While we showcase this on our blog and through our supper club, we also have service offerings that range from catering and private events, to cooking lessons and cake making.</p>
-        <Flourish text="Info" />
-        <ul>
-            <li>Cocktail Parties</li>
-            <li>Dinner Parties</li>
-            <li>Bridal Showers</li>
-            <li>Baby Showers</li>
-            <li>Cooking Lessons (Single &amp; Group lessons)</li>
-            <li>Custom Cakes</li>
-            <li>Party Favors</li>
-            <li>Private Events</li>
-            <li>Catering</li>
-        </ul><br>
+    <div class="container">
+        <div id="left">
+            <p>Cento is passionate about food, creating Italian inspired dishes with the best ingredients. While we showcase this on our blog and through our supper club, we also have service offerings that range from catering and private events, to cooking lessons and cake making.</p>
+            <Flourish text="Info" />
+            <ul>
+                <li>Cocktail Parties</li>
+                <li>Dinner Parties</li>
+                <li>Bridal Showers</li>
+                <li>Baby Showers</li>
+                <li>Cooking Lessons (Single &amp; Group lessons)</li>
+                <li>Custom Cakes</li>
+                <li>Party Favors</li>
+                <li>Private Events</li>
+                <li>Catering</li>
+            </ul><br>
+        </div>
+
+        <img src="/imgs/servicesDescImage.jpg" id="descImage" alt="cupcake tower"/>
     </div>
-
-    <img src="/imgs/servicesDescImage.jpg" id="descImage" alt="cupcake tower"/>
 </div>
