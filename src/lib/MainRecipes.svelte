@@ -1,6 +1,6 @@
 <script>
     import {getRecipes} from '$lib/helpers'
-import Flourish from './Flourish.svelte';
+    import Flourish from './Flourish.svelte';
     import Recipe from './Recipe.svelte';
     export let recipes, stale;
 
@@ -15,6 +15,14 @@ import Flourish from './Flourish.svelte';
 </script>
 
 <style>
+    #main {
+        width: 95%;
+        max-width: 1000px;
+        padding: 0;
+        margin: 50px auto 0 auto;
+        background-color: #fff;
+    }
+
     #recent {
         display: inline-block;
         width: 70%;
@@ -25,9 +33,11 @@ import Flourish from './Flourish.svelte';
     }
 </style>
 
-<div id="recent">
-    <Flourish text="Recent Recipes" />
-    {#each recipes as recipe (recipe.name)}
-        <Recipe {recipe} />
-    {/each}
+<div id="main">
+    <div id="recent">
+        <Flourish text="Recent Recipes" />
+        {#each recipes as recipe (recipe.name)}
+            <Recipe {recipe} />
+        {/each}
+    </div>
 </div>

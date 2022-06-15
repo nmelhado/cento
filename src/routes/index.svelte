@@ -12,7 +12,7 @@
 </script>
 
 <script>
-import MainRecipes from "../lib/MainRecipes.svelte";
+    import MainRecipes from "$lib/MainRecipes.svelte";
 
     export let recipesResp;
 </script>
