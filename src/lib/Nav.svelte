@@ -1,6 +1,6 @@
 <script>
 	import throttle from 'just-throttle';
-	import { prefetch } from '$app/navigation';
+	import { prefetch, goto } from '$app/navigation';
     import NavIcon from './NavIcon.svelte';
     
     export let activeTab, navHeight;
@@ -8,10 +8,17 @@
 
     const searchClick = () => {
         if(searchExpanded) {
-            // TODO: add search logic
+            submitSearch()
+        } else {
+            searchExpanded = !searchExpanded;
         }
+    }
 
+    const submitSearch = () => {
+        const sv = searchValue;
+        searchValue = "";
         searchExpanded = !searchExpanded;
+        goto(`recipes?search=${sv}`)
     }
 
     const setNavHeight = (e, w) => {
@@ -57,17 +64,23 @@
 
 <style>
     #banner {
+        display: flex;
         background-color: #fff;
     }
 
     #logo {
         display: block;
+        width: 100%;
+    }
+
+    .bannerInner {
+        display: inline-block;
         width: 80%;
         max-width: 600px;
-        padding: 60px 20px;
+        padding: 10px;
         left: 0;
         right: 0;
-        margin: 0 auto;
+        margin: 40px auto 20px;
     }
 
     .navbar {
@@ -95,18 +108,9 @@
     }
 
     .navButtons a {
-        display: inline-block;
         color: #999;
         text-align: center;
-        font-size: 18px;
-        padding: 18px 4px 18px 4px;
-        text-decoration: none;
-    }
-
-    .navButtons a:hover {
-        color: #666;
-        text-decoration: underline;
-        text-decoration-color: #ddd;
+        padding: 0 4px;
     }
 
     #igLogo {
@@ -140,7 +144,7 @@
         display: inline-block;
         vertical-align: middle;
         padding: 0;
-        margin-top: -39px;
+        margin-top: -19px;
     }
 
     #BKSupperClub {
@@ -166,6 +170,9 @@
     .searchText {
         width: 130px;
         display: inline-block;
+        transition: all 0.5s;
+        opacity: 1;
+        font-size: 1em;
     }
 
     #searchButton {
@@ -181,7 +188,9 @@
     }
 
     .hide {
-        display: none;
+        width: 0;
+        opacity: 0;
+        pointer-events: none;
     }
 
     .searchClose {
@@ -214,7 +223,7 @@
 <header>
     <!-- banner -->
 	<div id="banner" bind:this={el}>
-		<a href="/" on:touchstart={() => prefetch('/')} on:mouseover={() => prefetch('/')}  on:focus={() => prefetch('/')} >
+		<a href="/" class="bannerInner" on:touchstart={() => prefetch('/')} on:mouseover={() => prefetch('/')}  on:focus={() => prefetch('/')} >
             <img src="/imgs/banner.png" id="logo" alt="banner" />
         </a>
 	</div>
@@ -237,10 +246,12 @@
                 <!-- Insta Link -->
                 <a href="https://www.instagram.com/cento.percento/?hl=en" class="insta"><img src="/imgs/ig.png" id="igLogo" alt="instagram logo"></a>
                 <br>
-                <div class="navSearch">
-                    <input type="text" class="searchText" class:hide={!searchExpanded} name="q" bind:value={searchValue} />
-                    <img type="image" style="padding: 3px {searchExpanded ? 9: 30}px;" src="/imgs/search.png" id="searchButton" alt="Submit Form" on:click={() => searchClick()}/>
-                </div>
+                {#if activeTab != "/recipes"}
+                    <form class="navSearch"  on:submit|preventDefault={submitSearch}>
+                        <input type="text" class="searchText" class:hide={!searchExpanded} name="q" bind:value={searchValue} />
+                        <img type="image" style="padding: 3px {searchExpanded ? 9: 30}px;" src="/imgs/search.png" id="searchButton" alt="Submit Form" on:click={() => searchClick()}/>
+                    </form>
+                {/if}
             </div>
         </nav>
     </div>    

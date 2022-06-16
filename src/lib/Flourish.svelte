@@ -16,14 +16,6 @@
         color: var(--accent);;
     }
 
-    .flourish {
-        width: 60px;
-        display: inline-block;
-        margin-right: 20px;
-        vertical-align: middle;
-        border-color: var(--accent);
-    }
-
     .flourishLine {
         display: inline-flex;
     }
@@ -39,6 +31,5 @@
 
 <div class="break">
     <h2>{text}</h2>
-    <img class="flourish" src="/imgs/flourish.png" alt="flourish" />
     <hr class="flourishLine">
 </div>

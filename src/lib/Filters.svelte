@@ -1,5 +1,4 @@
 <script>
-	import { goto } from '$app/navigation';
     import Filter from "$lib/Filter.svelte";
     import { createEventDispatcher } from 'svelte';
 
@@ -19,38 +18,12 @@
         if(newSeasons) seasons = newSeasons;
         if(newDifficulties) difficulties = newDifficulties;
 
-        let query = '?page=1';
-
-        query += getSelected(meals, 'meals');
-        query += getSelected(seasons, 'seasons');
-        query += getSelected(tags, 'tags');
-        query += getSelected(difficulties, 'difficulty');
-
-        goto(`/recipes${query}`, {noscroll: true,  keepfocus: true});
         updateFilters();
-    }
-
-    const getSelected = (o, key) => {
-        let selected = [];
-
-        for (const k in o) {
-            if (o[k].selected) {
-                selected.push(o[k].name)
-            }
-        }
-
-        // some options are selected
-        if(selected.length) {
-            return `&${key}=${selected.join(',')}`
-        }
-
-        // no options selected
-        return '';
     }
 </script>
 
 <style>
-    .filterMenu {
+    .filters {
         position: relative;
         width: 250px;
         height: 100%;
@@ -61,10 +34,11 @@
         vertical-align: middle;
         margin-right: 10px;
         color: var(--accent);;
+        text-align: center;
     }
 </style>
 
-<div class="filterMenu">
+<div class="filters">
     <h2>Filters</h2>
     <!-- tags -->
     <Filter options={meals} key='Meals' label="Meals" on:newQuery={updateQuery} />

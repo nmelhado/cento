@@ -30,6 +30,10 @@
         text-decoration: none;
     }
 
+    .recipe:hover {
+        background-color: var(--accentSecondary);
+    }
+
     .prevImage {
         width: 90%;
         margin: 10px 5%;

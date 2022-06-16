@@ -34,6 +34,18 @@ h2 {
     font-weight: 400;
 }
 
+input[type=text] {
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    font-size: 1.1em;
+    padding: 0.3em;
+}
+
+input[type=text]:focus {
+    border-color: var(--centoSecondary);
+    outline: none;
+}
+
 @media only screen and (max-width: 736px) {
     h1 {
         font-size: 1.6em;

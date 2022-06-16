@@ -18,8 +18,10 @@
 <style>
     h3 {
         vertical-align: middle;
-        margin-right: 10px;
+        margin: 0 .5em;
         color: var(--accent);
+        font-weight: 400;
+        white-space: nowrap;
     }
 
     .options {
@@ -54,10 +56,33 @@
         border-color: #fff;
         color: #fff;
     }
+
+    .heading {
+        display: flex;
+        align-items: center;
+        margin: 1em 0;
+    }
+
+    hr {
+        display: inline-flex;
+        width: 100%;
+        max-width: 1000px;
+        color: var(--accentSecondary);
+        border-color: var(--accentSecondary);
+        border-style: solid;
+    }
+
+    .filter {
+        margin: 3em 0;
+    }
 </style>
 
-<div class="filterMenu">
-    <h3>{label}</h3>
+<div class="filter">
+    <div class="heading">
+        <hr />
+        <h3>{label}</h3>
+        <hr />
+    </div>
     <div class="options">
         {#each options as {selected, name}}
             <label class:selected={selected} on:click={updateQuery}>

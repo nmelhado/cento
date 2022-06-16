@@ -25,6 +25,7 @@
 	"type": "module",
 	"dependencies": {
 		"contentful": "^9.1.32",
+		"fuzzyjs": "^5.0.1",
 		"just-throttle": "^4.0.1"
 	}
 }
