@@ -1,36 +1,14 @@
 <script>
-	import { goto } from '$app/navigation';
-    import {getRecipes} from '$lib/helpers'
     import Flourish from '$lib/Flourish.svelte';
 	import throttle from 'just-throttle';
     import Pagination from '$lib/Pagination.svelte';
     import Recipe from '$lib/Recipe.svelte';
     import Filters from '$lib/Filters.svelte';
 	import { match } from 'fuzzyjs';
+    import { getPage, refreshRecipes, replaceStateWithQuery, getFilters } from '$lib/helpers/allRecipesLogic'
     // import MobileFilters from '$lib/MobileFilters.svelte';
     
     export let recipes, stale, queryVars;
-
-    $: console.log(recipes)
-
-	const refreshRecipes = async () => {
-		const newRecipes = await getRecipes(true);
-		recipes = newRecipes.recipes;
-	}
-    
-	if(stale) {
-		refreshRecipes();
-	}
-
-
-    const getPage = (pg, rs) => {
-        console.log(rs)
-        const start = pg * perPage
-        const end = (pg + 1) * perPage;
-
-        // set new paginatedRecipes
-        return rs.slice(start, end)
-    }
 
     // filters
     let seasons = [];
@@ -40,60 +18,12 @@
 
     let filteredResults = [];
 
-    const getFilters = (rs) => {
-        const seasonsFs = new Set();
-        const tagsFs = new Set();
-        const mealsFs = new Set();
-        const difficultiesFs = new Set();
-        // build pool of queries
-        for(const r of rs) {
-            // add seasons
-            for(const s of r.season) {
-                seasonsFs.add(s);
-            }
-            // add tags
-            for(const t of r.tags) {
-                tagsFs.add(t);
-            }
-            // add meal
-            mealsFs.add(r.meal);
-            // add difficulty
-            difficultiesFs.add(r.difficulty);
-        }
-
-        seasons = buildFilters([...seasonsFs], seasons, 'seasons');
-        meals = buildFilters([...mealsFs], meals, 'meals');
-        difficulties = buildFilters([...difficultiesFs], difficulties, 'difficulties');
-        tags = buildFilters([...tagsFs], tags, 'tags');
-
-        filterResults(recipes)
-    }
-
-    const buildFilters = (arr, dest, key) => {
-        // empty array to clean data
-        dest = [];
-
-        // loop through and determine if they're already selected
-        for(const i of arr) {
-            dest.push({
-                name: i,
-                selected: getSelected(i, key)
-            })
-        }
-
-        return dest;
-    }
-
-    const getSelected = (val, key) => {
-        switch (key) {
-            case 'difficulty':
-                // these params can only have one value
-                return val == queryVars[key];
-            default:
-                // other params are sets
-                return (queryVars[key] && queryVars[key].has(val)) || false;
-        }
-    }
+    let queriesReady = false;
+    
+	if(stale) {
+		recipes = refreshRecipes();
+        stale = false;
+	}
 
     const filterResults = (rs, redirect, p = page) => {
         const mealsSet = createSet(meals);
@@ -106,7 +36,6 @@
         if(search.trim() != "") {
             searchResults = rs.filter(r => {
                 const nameMatch = match(search, r.name);
-                console.log(nameMatch);
                 return nameMatch.match;
             })
 
@@ -151,25 +80,32 @@
             return true;
         })
 
-        if(page != p) page = p;
-
         if(redirect) {
-            let query = '?page=1';
+            let query = {};
+
+            const oldPage = page;
+            if(page != p) page = p;
+
+            query.page = page + 1;
+
 
             const searchQ = search.trim();
 
-            if(searchQ != "") query += `&search=${searchQ}`;
+            query.search = searchQ;
 
-            query += getSelectedForQuery(meals, 'meals');
-            query += getSelectedForQuery(seasons, 'seasons');
-            query += getSelectedForQuery(tags, 'tags');
-            query += getSelectedForQuery(difficulties, 'difficulty');
+            query = getSelectedForQuery(query, meals, 'meals');
+            query = getSelectedForQuery(query, seasons, 'seasons');
+            query = getSelectedForQuery(query, tags, 'tags');
+            query = getSelectedForQuery(query, difficulties, 'difficulty');
 
-            goto(`/recipes${query}`, {noscroll: true, keepfocus: true});
+            if(page == oldPage) {
+                paginatedRecipes = getPage(page, perPage, filteredResults);
+            }
+            replaceStateWithQuery(query);
         }
     }
 
-    const getSelectedForQuery = (o, key) => {
+    const getSelectedForQuery = (q, o, key) => {
         let selected = [];
 
         for (const k in o) {
@@ -180,11 +116,11 @@
 
         // some options are selected
         if(selected.length) {
-            return `&${key}=${selected.join(',')}`
+            q[key] = selected.join(',');
         }
 
         // no options selected
-        return '';
+        return q;
     }
 
     const createSet = (o) => {
@@ -195,28 +131,41 @@
         return s
     }
 
-    const setQueryVariables = (qVs) => {
-        if(qVs.page) page = qVs.page - 1;
-        if(qVs.search) search = qVs.search;
+    const setQueryVariables = (qVs, rs) => {
+        if(!queriesReady && qVs && rs) {
+            if(qVs.search) search = qVs.search;
+            if(qVs.page) page = qVs.page - 1;
+
+            const availableFilters = getFilters(recipes, qVs);
+            seasons = availableFilters.seasons;
+            meals = availableFilters.meals;
+            difficulties = availableFilters.difficulties;
+            tags = availableFilters.tags;
+            
+            filterResults(recipes);
+
+            setTimeout(() => {
+                queriesReady = true;
+            }, 1)
+        }
     }
 
     const searchRecipes = (s) => {
-        const curS = `${s}`;
-        filterResults(recipes, false, 0)
-        setTimeout(() => {
-            if(curS == search) {
-                filterResults(recipes, true, 0)
-            }
-        }, 1000)
+        if(queriesReady) {
+            const curS = `${s}`;
+            filterResults(recipes, true, 0);
+        }
     }
 
-    $: setQueryVariables(queryVars)
+    const changePage = (p) => {
+        return getPage(p, perPage, filteredResults)
+    }
 
-    $: getFilters(recipes);
+    $: setQueryVariables(queryVars, recipes);
 
     $: throttle(searchRecipes(search));
     
-    $: paginatedRecipes = getPage(page, filteredResults);
+    $: paginatedRecipes = changePage(page);
 
     $:total = filteredResults.length || 0;
 	const perPage = 15;

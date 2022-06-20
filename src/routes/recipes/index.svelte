@@ -1,6 +1,6 @@
 <script context="module">
     import {getRecipes} from '$lib/helpers'
-    export function load({url}) {
+    export async function load({url}) {
         const recipesResp = getRecipes();
 
         const queryVars = {
@@ -42,6 +42,6 @@
     {#await recipesResp}
         Stirring ingredients...
     {:then {recipes, stale}}
-        <AllRecipes {recipes} {stale} {queryVars} />
+        <AllRecipes {recipes} {stale} {queryVars} postUpdate={true} />
     {/await}
 </div>
