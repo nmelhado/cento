@@ -21,7 +21,7 @@
 		background-color: #ffffff;
 		text-align: center;
 		padding: 2em 0 3em;
-        border-top: 0.5px solid #666;
+        border-top: 0.5px solid #c7c7c7;
 		font-size: .8em;
 		font-family: 'Source Sans Pro', sans-serif;
 		width: 100%;

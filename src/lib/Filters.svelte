@@ -42,7 +42,7 @@
     <h2>Filters</h2>
     <!-- tags -->
     <Filter options={meals} key='Meals' label="Meals" on:newQuery={updateQuery} />
+    <Filter options={difficulties} key='Difficulties' label="Max Difficulty" on:newQuery={updateQuery} />
     <Filter options={seasons} key='Seasons' label="Seasons" on:newQuery={updateQuery} />
     <Filter options={tags} key='Tags' label="Tags" on:newQuery={updateQuery} />
-    <Filter options={difficulties} key='Difficulties' label="Max Difficulty" on:newQuery={updateQuery} />
 </div>

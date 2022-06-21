@@ -65,6 +65,20 @@ export const getFilters = (rs, queryVars) => {
     }
 }
 
+export const getSelectedForQuery = (q, o, key) => {
+    let selected = [];
+
+    for (const k in o) {
+        if (o[k].selected) {
+            selected.push(o[k].name)
+        }
+    }
+
+    q[key] = selected.join(',');
+
+    return q;
+}
+
 // non exported functions
 
 const buildFilters = (arr, key, queryVars) => {
@@ -83,12 +97,10 @@ const buildFilters = (arr, key, queryVars) => {
 }
 
 const getSelected = (val, key, queryVars) => {
-    switch (key) {
-        case 'difficulty':
-            // these params can only have one value
+    if(key == 'difficulty') {
+        // this param can only have one value
             return val == queryVars[key];
-        default:
-            // other params are sets
-            return (queryVars[key] && queryVars[key].has(val)) || false;
+    } else {
+        return (queryVars[key] && queryVars[key].has(val)) || false;
     }
 }

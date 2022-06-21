@@ -7,7 +7,7 @@ export const simplifyRecipe = (data) => {
 }
 
 export const simplifyRecipePreview = (data) => {
-    const resp = {
+    return {
         name: data.name,
         difficulty: data.difficulty,
         cookTime: data.cookTime,
@@ -16,8 +16,6 @@ export const simplifyRecipePreview = (data) => {
         season: data.season,
         previewImage: getImg(data.previewImage),
     }
-
-    return resp
 }
 
 const getImg = (img) => {

@@ -5,7 +5,7 @@
     import Recipe from '$lib/Recipe.svelte';
     import Filters from '$lib/Filters.svelte';
 	import { match } from 'fuzzyjs';
-    import { getPage, refreshRecipes, replaceStateWithQuery, getFilters } from '$lib/helpers/allRecipesLogic'
+    import { getPage, refreshRecipes, replaceStateWithQuery, getFilters, getSelectedForQuery } from '$lib/helpers/allRecipesLogic'
     // import MobileFilters from '$lib/MobileFilters.svelte';
     
     export let recipes, stale, queryVars;
@@ -105,24 +105,6 @@
         }
     }
 
-    const getSelectedForQuery = (q, o, key) => {
-        let selected = [];
-
-        for (const k in o) {
-            if (o[k].selected) {
-                selected.push(o[k].name)
-            }
-        }
-
-        // some options are selected
-        if(selected.length) {
-            q[key] = selected.join(',');
-        }
-
-        // no options selected
-        return q;
-    }
-
     const createSet = (o) => {
         const s = new Set();
         for (const key in o) {
@@ -146,7 +128,7 @@
 
             setTimeout(() => {
                 queriesReady = true;
-            }, 1)
+            },1);
         }
     }
 
@@ -192,6 +174,7 @@
     .matching {
         display: block;
         margin: 0 0 1em;
+        height: 1em;
         font-style: italic;
         color: #aaa;
         font-size: 0.8em;
@@ -223,9 +206,11 @@
         </div>
         <div class="recipes">
             <Flourish text="Recipes" />
-            {#if filteredResults.length != recipes.length}
-                <span class="matching">{filteredResults.length} of {recipes.length} recipes match the filters</span>
-            {/if}
+                <span class="matching">
+                    {#if filteredResults.length != recipes.length}
+                        {filteredResults.length} of {recipes.length} recipes match the filters
+                    {/if}
+                </span>
             {#each paginatedRecipes as recipe (recipe.name)}
                 <Recipe {recipe} />
             {/each}
