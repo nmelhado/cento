@@ -26,7 +26,7 @@
         margin: 20px 1.5%;
         border: 1px solid #ccc;
         text-align: center;
-        color: #888;
+        color: #333;
         text-decoration: none;
     }
 
@@ -41,6 +41,8 @@
 
     .resName {
         height: 33px;
+        font-weight: 300;
+        width: 90%;
     }
 
     h6 {

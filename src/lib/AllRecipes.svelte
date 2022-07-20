@@ -6,6 +6,7 @@
     import Filters from '$lib/Filters.svelte';
 	import { match } from 'fuzzyjs';
     import { getPage, refreshRecipes, replaceStateWithQuery, getFilters, getSelectedForQuery } from '$lib/helpers/allRecipesLogic'
+    import { onMount } from 'svelte';
     // import MobileFilters from '$lib/MobileFilters.svelte';
     
     export let recipes, stale, queryVars;
@@ -20,16 +21,20 @@
 
     let queriesReady = false;
     
-	if(stale) {
-		recipes = refreshRecipes();
-        stale = false;
-	}
+    onMount( async () => {
+        if(stale) {
+            const newRecipes = await refreshRecipes();
+            recipes = newRecipes;
+            stale = false;
+        }
+    })
 
     const filterResults = (rs, redirect, p = page) => {
         const mealsSet = createSet(meals);
         const tagsArr = createSet(tags);
         const seasonsSet = createSet(seasons);
         const difficultiesSet = createSet(difficulties);
+        const maxDifficulty = difficultiesSet.size ? Math.max(...difficultiesSet) : 3;
 
         let searchResults = rs;
 
@@ -74,8 +79,8 @@
                 }
                 if(!valid) return false
             }
-            if(difficultiesSet.size) {
-                if(!difficultiesSet.has(r.difficulty)) return false;
+            if(r.difficulty > maxDifficulty) {
+                return false;
             }
             return true;
         })
@@ -118,7 +123,7 @@
             if(qVs.search) search = qVs.search;
             if(qVs.page) page = qVs.page - 1;
 
-            const availableFilters = getFilters(recipes, qVs);
+            const availableFilters = getFilters(rs, qVs);
             seasons = availableFilters.seasons;
             meals = availableFilters.meals;
             difficulties = availableFilters.difficulties;

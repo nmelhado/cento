@@ -1,3 +1,12 @@
+export const simplifyFeaturedRecipes = ({leftRecipe, middleRecipe, rightRecipe}) => {
+    let resp = {};
+    resp.left = simplifyRecipePreview(leftRecipe.fields);
+    resp.middle = simplifyRecipePreview(middleRecipe.fields);
+    resp.right = simplifyRecipePreview(rightRecipe.fields);
+
+    return resp
+}
+
 export const simplifyRecipe = (data) => {
     data.mainImage = getImg(data.mainImage);
 

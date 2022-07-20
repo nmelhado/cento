@@ -1,11 +1,13 @@
 <script context="module">
-    import {getRecipes} from '$lib/helpers'
+    import {getRecipes, getFeaturedRecipes} from '$lib/helpers'
     export function load() {
         const recipesResp = getRecipes();
+        const featuredRecipesResp = getFeaturedRecipes();
 	
 		return {
 			props: {
                 recipesResp,
+                featuredRecipesResp,
 			}
 		};
 	}
@@ -13,12 +15,16 @@
 
 <script>
     import MainRecipes from "$lib/MainRecipes.svelte";
+    import FeaturedRecipes from "$lib/FeaturedRecipes.svelte"
 
-    export let recipesResp;
+    export let recipesResp, featuredRecipesResp;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+{#await featuredRecipesResp}
+    Loading Featured Recipes...
+{:then {featuredRecipes, stale}}
+    <FeaturedRecipes {featuredRecipes} {stale} />
+{/await}
 
 {#await recipesResp}
     Stirring ingredients...

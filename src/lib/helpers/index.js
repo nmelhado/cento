@@ -1,5 +1,6 @@
-import { getRecipes } from "./getRecipes";
+import { getRecipes, getFeaturedRecipes } from "./getRecipes";
 
 export {
     getRecipes,
+    getFeaturedRecipes,
 }

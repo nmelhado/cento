@@ -9,7 +9,7 @@ const client = contentful.createClient({
 });
 
 export async function get() {
-	const data = await client.getEntries();
+	const data = await client.getEntries({content_type: 'recipe'});
 
     const recipes = [];
     
